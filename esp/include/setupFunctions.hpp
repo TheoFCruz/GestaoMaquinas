@@ -1,5 +1,5 @@
-#include <WiFi.h>
 #include <PubSubClient.h>
+#include <WiFi.h>
 
 void setup_wifi(char* ssid, char* passwd)
 {
@@ -22,18 +22,15 @@ void setup_wifi(char* ssid, char* passwd)
   Serial.println(WiFi.localIP());
 }
 
-void reconnect(PubSubClient& pbClient, char* username, char* passwd) {
+void reconnect(PubSubClient& pbClient, String clientID) {
   // Loop until we're reconnected
   while (!pbClient.connected()) 
   {
     Serial.print("Attempting MQTT connection...");
 
-    String clientID = "ESP_CPEJR";
-
-    if (pbClient.connect(clientID.c_str(), username, passwd)) 
+    if (pbClient.connect(clientID.c_str())) 
     {
       Serial.println("connected");
-      Serial.println(pbClient.connected());
     }
     else {
       Serial.print("failed, rc=");
