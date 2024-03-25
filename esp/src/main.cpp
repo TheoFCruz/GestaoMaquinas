@@ -11,7 +11,7 @@
 #define MQTT_SERVER "test.mosquitto.org"
 #define MQTT_PORT 1883
 #define TOPIC "gestao/teste"
-#define MQTT_ID "ESP_CPEJR"
+#define CLIENT_ID "esp_cpejr"
 
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
@@ -53,7 +53,7 @@ void loop()
 {
   if (!mqttClient.connected()) 
   {
-    reconnect(mqttClient, MQTT_ID);
+    reconnect(mqttClient, CLIENT_ID);
   }
   mqttClient.loop();
 
