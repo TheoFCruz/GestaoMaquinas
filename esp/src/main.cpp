@@ -36,7 +36,7 @@ void publishState(PubSubClient& mqttClient, String mqttTopic, state currentState
 
 // Estados atual e anterior da maquina
 state currentState = FREE;
-state previousState = FREE;
+state previousState = INUSE;
 
 void setup() 
 {
@@ -58,8 +58,8 @@ void loop()
   mqttClient.loop();
 
   previousState = currentState;
-  if (!digitalRead(MAINTENANCE_BUTTON)) currentState = MAINTENANCE;
-  else if (!digitalRead(USE_BUTTON)) currentState = INUSE;
+  if (digitalRead(MAINTENANCE_BUTTON)) currentState = MAINTENANCE;
+  else if (digitalRead(USE_BUTTON)) currentState = INUSE;
   else currentState = FREE;
 
   if (currentState != previousState) publishState(mqttClient, TOPIC, currentState, espID.c_str());
